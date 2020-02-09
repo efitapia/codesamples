@@ -10,3 +10,19 @@ sourceCompatibility = 1.11
 repositories {
     mavenCentral()
 }
+
+dependencies {
+    annotationProcessor 'org.projectlombok:lombok:1.18.12'
+    compile 'org.projectlombok:lombok:1.18.12'
+
+    compile group: 'ch.qos.logback', name: 'logback-core', version: '1.2.3'
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.github.efitapia.codesamples.voximplant.Main'
+    }
+}
