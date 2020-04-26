@@ -1,6 +1,7 @@
 package com.github.efitapia.payservice.repo;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,8 +10,9 @@ import javax.persistence.Table;
 import java.math.BigDecimal;
 
 @Data
+@Accessors(chain = true)
 @Entity
-@Table(name = "account")
+@Table(name = "accounts")
 public class Account {
 
     @Id

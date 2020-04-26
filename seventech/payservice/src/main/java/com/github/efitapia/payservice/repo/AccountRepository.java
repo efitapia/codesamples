@@ -1,17 +1,26 @@
 package com.github.efitapia.payservice.repo;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Lock;
-import org.springframework.data.jpa.repository.Query;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
+@Repository
+@RequiredArgsConstructor
+public class AccountRepository {
 
-import static javax.persistence.LockModeType.PESSIMISTIC_WRITE;
+    private final AccountJpaRepository jpaRepo;
 
-public interface AccountRepository extends JpaRepository<Account, Long> {
+    public Account lockById(Long id) {
+        return jpaRepo.lockById(id)
+            .orElseThrow(() -> new NoSuchEntityException("No such account " + id));
+    }
 
-    @Lock(PESSIMISTIC_WRITE)
-    @Query("select a from Account a where a.id = :id")
-    Optional<Account> lockById(Long id);
+    public Account save(Account account) {
+        return jpaRepo.save(account);
+    }
+
+    public Account get(Long id) {
+        return jpaRepo.findById(id)
+            .orElseThrow(() -> new NoSuchEntityException("No such account " + id));
+    }
 
 }
